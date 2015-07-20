@@ -1,0 +1,19 @@
+{
+  "name": "libvorbis.js",
+  "version": "0.4.0",
+  "authors": [
+    "Gabriel Garcia <garciat@live.com>"
+  ],
+  "description": "This library lets you encode PCM audio data into Ogg Vorbis on your browser!",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "webaudio",
+    "pcm",
+    "ogg",
+    "vorbis"
+  ],
+  "license": "MIT",
+  "homepage": "http://garciat.com/libvorbis.js/"
+}
