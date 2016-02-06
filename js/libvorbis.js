@@ -3,7 +3,8 @@
 /// <reference path="../typings/es6-promise/es6-promise.d.ts" />
 /// <reference path="MediaRecorder.d.ts" />
 /// <reference path="vorbis_encoder.d.ts" />
-if (!window.BlobEvent) {
+var window;
+if (window && !window.BlobEvent) {
     window.BlobEvent = function BlobEvent(type, init) {
         this.type = type;
         this.data = init.data;
