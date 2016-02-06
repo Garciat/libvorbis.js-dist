@@ -3,32 +3,19 @@
 /// <reference path="../typings/es6-promise/es6-promise.d.ts" />
 /// <reference path="MediaRecorder.d.ts" />
 /// <reference path="vorbis_encoder.d.ts" />
-var getScriptAbsoluteURL = (function () {
-    if (!self.document) {
-        return null;
-    }
-    var script = document.currentScript;
-    var scriptSrc = script.getAttribute('src');
-    var absoluteRegex = /^(blob\:|http\:|https\:)/;
-    var url;
-    if (absoluteRegex.test(scriptSrc)) {
-        url = scriptSrc;
-    }
-    else {
-        var dirname = location.pathname.split('/').slice(0, -1).join('/');
-        url = location.protocol + "//" + location.host;
-        if (scriptSrc[0] === '/') {
-            url += scriptSrc;
-        }
-        else {
-            url += dirname + '/' + scriptSrc;
-        }
-    }
-    return function () { return url; };
-})();
+if (!window.BlobEvent) {
+    window.BlobEvent = function BlobEvent(type, init) {
+        this.type = type;
+        this.data = init.data;
+    };
+}
+// END BlobEvent shim
 var VorbisWorkerScript = (function () {
     function VorbisWorkerScript() {
     }
+    VorbisWorkerScript.createWorker = function () {
+        return new Worker(VorbisWorkerScript.getCurrentScriptURL());
+    };
     // NOTE `self` should be type `WorkerGlobalScope`
     // see https://developer.mozilla.org/en-US/docs/Web/API/WorkerGlobalScope
     VorbisWorkerScript.main = function (self) {
@@ -76,13 +63,36 @@ var VorbisWorkerScript = (function () {
             }
         });
     };
+    VorbisWorkerScript.getCurrentScriptURL = (function () {
+        if (!this.document) {
+            return null;
+        }
+        var script = document.currentScript;
+        var scriptSrc = script.getAttribute('src');
+        var absoluteRegex = /^(blob\:|http\:|https\:)/;
+        var url;
+        if (absoluteRegex.test(scriptSrc)) {
+            url = scriptSrc;
+        }
+        else {
+            var dirname = location.pathname.split('/').slice(0, -1).join('/');
+            url = location.protocol + "//" + location.host;
+            if (scriptSrc[0] === '/') {
+                url += scriptSrc;
+            }
+            else {
+                url += dirname + '/' + scriptSrc;
+            }
+        }
+        return function () { return url; };
+    })();
     return VorbisWorkerScript;
 }());
 function noop() { }
 var VorbisEncoder = (function () {
     // ---
     function VorbisEncoder() {
-        this._worker = new Worker(getScriptAbsoluteURL());
+        this._worker = VorbisWorkerScript.createWorker();
         // ---
         this._ondata = noop;
         this._onfinish = noop;
@@ -34958,7 +34968,7 @@ if (module && module.exports) {
 }
 
 // Web Worker Environment
-if (self.document === undefined) {
-    VorbisWorkerScript.main(self);
+if (!module && this.document === undefined) {
+    VorbisWorkerScript.main(this);
 }
 
