@@ -1,6 +1,16 @@
-# libvorbis.js bower files
+# libvorbis.js compiled files
 
-These are not the sources you're looking for.
+You may download these and use them directly, or install the package via:
+
+**NPM**
+
+    npm install libvorbis.js
+
+**Bower**
+
+    bower install libvorbis.js
+
+## Feedback
 
 Go to the [main repository](https://github.com/Garciat/libvorbis.js)!
 
