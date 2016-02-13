@@ -6,6 +6,8 @@ You may download these and use them directly, or install the package via:
 
     npm install libvorbis.js
 
+Note: npm users will get a limited API described by [vorbis_encoder.d.ts](https://github.com/Garciat/libvorbis.js/blob/master/src/vorbis_encoder.d.ts). The module exports an instance of `VorbisEncoderModule`. This should be fixed in a future release.
+
 **Bower**
 
     bower install libvorbis.js
