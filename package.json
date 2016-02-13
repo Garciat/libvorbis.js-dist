@@ -1,0 +1,22 @@
+{
+  "name": "libvorbis.js",
+  "version": "1.1.1",
+  "description": "Encode audio with vorbis via emscripten!",
+  "main": "js/libvorbis.min.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Garciat/libvorbis.js-dist.git"
+  },
+  "keywords": [
+    "audio",
+    "vorbis",
+    "ogg",
+    "encode"
+  ],
+  "author": "Gabriel Garcia",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Garciat/libvorbis.js/issues"
+  },
+  "homepage": "https://github.com/Garciat/libvorbis.js-dist#readme"
+}
